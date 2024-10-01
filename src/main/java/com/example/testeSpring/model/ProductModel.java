@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TB_PRODUCTS")
+@Table(name = "TB_CADASTRO")
 
 public class ProductModel extends RepresentationModel<ProductModel> implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -19,7 +19,17 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    private BigDecimal price;
+    private Number cpf;
+    private Number cep;
+    private Number primeiroTratamento;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -29,19 +39,27 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Number getCpf() {
+        return cpf;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setCpf(Number cpf) {
+        this.cpf = cpf;
     }
 
-    public UUID getId() {
-        return id;
+    public Number getCep() {
+        return cep;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setCep(Number cep) {
+        this.cep = cep;
+    }
+
+    public Number isPrimeiroTratamento() {
+        return primeiroTratamento;
+    }
+
+    public void setPrimeiroTratamento(Number primeiroTratamento) {
+        this.primeiroTratamento = primeiroTratamento;
     }
 }

@@ -27,7 +27,7 @@ public class ProductController {
     //CRUD
 
     //POST - CREATE
-    @PostMapping("/products")
+    @PostMapping("/cadastro")
     public ResponseEntity<ProductModel> saveProduct(@RequestBody @Valid ProductRecordDto  productRecordDto) { //Ele fala que vai ter um retorno pro ProdcutModel, No RequestBody o metodo recebe como corpo o PRoductdRecordDto, e o Valid serve para a validação
         var productModel = new ProductModel(); //Criacao de um objeto novo do Model que sera inserido no BD
         BeanUtils.copyProperties(productRecordDto, productModel); // Conversao do Dto para o Model, usando o Beans Utils
@@ -35,7 +35,7 @@ public class ProductController {
     }
 
     //GET = READ
-    @GetMapping("/products")
+    @GetMapping("/cadastro")
     public ResponseEntity<List<ProductModel>> getAllProducts() {
         List<ProductModel> productsList = productRepository.findAll();
         if (!productsList.isEmpty()) {
@@ -48,22 +48,22 @@ public class ProductController {
     }
 
     // GET - READ, BUT NOW BY ID
-    @GetMapping("products/{id}")
+    @GetMapping("cadastro/{id}")
     public ResponseEntity<Object> getOneProduct(@PathVariable (value="id") UUID id) {
         Optional<ProductModel> product0 = productRepository.findById(id);
         if(product0.isEmpty()) {
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("cadastro not found");
         }
         product0.get().add(linkTo(methodOn(ProductController.class).getAllProducts()).withSelfRel());
         return ResponseEntity.status(HttpStatus.OK).body(product0.get());
     }
 
-    @PutMapping("/products/{id}")
+    @PutMapping("/cadastro/{id}")
     public ResponseEntity<Object> updateProduct(@PathVariable (value="id") UUID id,
                                                 @RequestBody @Valid ProductRecordDto productRecordDto) {
         Optional<ProductModel> product0 = productRepository.findById(id);
         if (product0.isEmpty()) {
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("cadastro not found");
         }
         var productModel = product0.get();
         BeanUtils.copyProperties(productRecordDto, productModel);
@@ -72,14 +72,14 @@ public class ProductController {
     }
 
     //DELETE
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/cadastro/{id}")
     public ResponseEntity<Object> deleteProduct(@PathVariable (value="id") UUID id) {
         Optional<ProductModel> product0 = productRepository.findById(id);
         if(product0.isEmpty()) {
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("cadastro not found");
         }
         productRepository.delete(product0.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Product deleted successfully");
+        return ResponseEntity.status(HttpStatus.OK).body("cadastro deleted successfully");
     }
 
 }
